@@ -6,8 +6,20 @@ pipeline {
         stage('Verify Pipeline') {
             steps {
                 echo 'Jenkins pipeline is working!'
-                sh 'echo Running DevSecOps project on AWS EC2'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t devsecops-app:v1 .'
+            }
+        }
+
+        stage('Verify Docker Image') {
+            steps {
+                sh 'docker image inspect devsecops-app:v1'
             }
         }
     }
 }
+
